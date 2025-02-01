@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import CommonWrapper from "../components/CommonWrapper";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
 const Registration = () => {
-  const [action, setAction] = React.useState(null);
   return (
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
