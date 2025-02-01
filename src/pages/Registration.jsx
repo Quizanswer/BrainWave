@@ -16,12 +16,7 @@ const Registration = () => {
         <CommonWrapper>
           <div className="flex gap-4 my-auto">
             <div className="flex flex-col w-1/2 gap-4 mx-auto">
-    <<<<<<< HEAD
-          <h2>Registration</h2>
-          <p>Home / Registration</p>
-          
-=======
-          <h2 className="text-[#303030] text-3xl font-bold">Login Form</h2>
+              <h2 className="text-[#303030] text-3xl font-bold">Login Form</h2>
               <p className="text-[#8A8988] font-medium]">
                 Already a Member? Log in here.
               </p>
@@ -130,7 +125,6 @@ const Registration = () => {
               </Form>
             </div>
           </div>
->>>>>>> d23c77ac0b3af1cfec82176e50fa9d43d6efd454
         </CommonWrapper>
       </div>
     </div>
