@@ -8,6 +8,7 @@ const Registration = () => {
         <CommonWrapper>
           <h2>Registration</h2>
           <p>Home / Registration</p>
+<h1>mehedi</h1>
         </CommonWrapper>
       </div>
     </div>
