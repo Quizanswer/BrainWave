@@ -46,7 +46,7 @@ export default function Header() {
               </div>
             </div>
             <div className="md:flex items-center space-x-2 hidden">
-              <CiLocationOn className="text-2xl" /> <p>Feni Sadar, Bangladesh</p>
+              <CiLocationOn className="text-2xl" /> <p>Feni, Chattagram,Bangladesh 3900</p>
             </div>
           </section>
         </CommonWrapper>
