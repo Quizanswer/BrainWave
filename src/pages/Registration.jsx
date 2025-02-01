@@ -1,6 +1,17 @@
 import React from "react";
 import CommonWrapper from "../components/CommonWrapper";
-import { Form, Input, Button, Checkbox } from "@nextui-org/react";
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  Select,
+  SelectItem,
+} from "@nextui-org/react";
+const role = [
+  { key: "student", label: "Ttudent" },
+  { key: "teacher", label: "Teacher" },
+];
 const Registration = () => {
   return (
     <div className="">
@@ -51,20 +62,20 @@ const Registration = () => {
                     inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
                   }}
                   errorMessage="Please enter a valid email"
-                  label="Email"
+                  label="Password"
                   labelPlacement="outside"
-                  name="email"
-                  placeholder="Enter your email"
-                  type="email"
+                  name="password"
+                  placeholder=" "
+                  type="password"
                   radius="none"
                 />
 
-                <Checkbox defaultSelected color="default">
-                  Default
+                <Checkbox radius="none" defaultSelected color="default">
+                  Remember Me
                 </Checkbox>
 
                 <Button type="reset" variant="flat">
-                  Login
+                  LOG IN
                 </Button>
               </Form>
             </div>
@@ -91,35 +102,53 @@ const Registration = () => {
                   classNames={{
                     inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
                   }}
-                  errorMessage="username"
-                  label="Username or Email Address "
+                  errorMessage="Username"
+                  label="Username"
                   labelPlacement="outside"
                   name="username"
                   placeholder=" "
                   type="text"
                   radius="none"
                 />
-
                 <Input
                   isRequired
-                  errorMessage="Please enter a valid email"
-                  label="Email"
-                  labelPlacement="outside"
-                  name="email"
-                  placeholder="Enter your email"
-                  type="email"
-                  radius="none"
                   classNames={{
                     inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
                   }}
+                  errorMessage="username"
+                  label="Email "
+                  labelPlacement="outside"
+                  name="username"
+                  placeholder=" "
+                  type="text"
+                  radius="none"
+                />
+                <Select defaultSelectedKeys={["student"]} radius="none">
+                  {role.map((role) => (
+                    <SelectItem
+                      classNames={{ wrapper: "bg-red-500" }}
+                      key={role.key}
+                    >
+                      {role.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+                <Input
+                  isRequired
+                  classNames={{
+                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+                  }}
+                  errorMessage="Please enter a valid email"
+                  label="Password"
+                  labelPlacement="outside"
+                  name="password"
+                  placeholder=" "
+                  type="password"
+                  radius="none"
                 />
 
-                <Checkbox defaultSelected color="default">
-                  Default
-                </Checkbox>
-
-                <Button type="reset" variant="flat">
-                  Login
+                <Button type="submit" variant="flat">
+                  REGISTER
                 </Button>
               </Form>
             </div>
