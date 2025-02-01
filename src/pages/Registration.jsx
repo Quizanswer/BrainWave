@@ -3,12 +3,11 @@ import CommonWrapper from "../components/CommonWrapper";
 
 const Registration = () => {
   return (
-
-        <CommonWrapper>
-          <h2 className="text-4xl font-semibold py-1">Registration</h2>
-          <p>Home / Registration</p>
-        </CommonWrapper>
-      </div>
+    <>
+      <CommonWrapper>
+        <h2 className="py-1 text-4xl font-semibold">Registration</h2>
+        <p>Home / Registration</p>
+      </CommonWrapper>
 
       <div className="bg-[#FDF6EA]">
         <CommonWrapper>
