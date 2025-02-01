@@ -4,6 +4,7 @@ import App from "../App";
 import NotFound from "../pages/NotFound";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Registration from "../pages/Registration";
 
 const routes = createBrowserRouter([
   {
@@ -17,8 +18,13 @@ const routes = createBrowserRouter([
       },
       {
         index: true,
+        path: "/registration",
+        element: <Registration />,
+      },
+      {
+        index: true,
         path: "/login",
-        element: <SignIn /> ,
+        element: <SignIn />,
       },
       {
         index: true,
