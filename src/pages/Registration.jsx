@@ -17,7 +17,6 @@ const Registration = () => {
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
         <CommonWrapper>
-         
           <h2 className="py-1 text-4xl font-semibold">Registration</h2>
           <p>Home / Registration</p>
         </CommonWrapper>
@@ -25,8 +24,8 @@ const Registration = () => {
 
       <div className="bg-[#FDF6EA] py-20">
         <CommonWrapper>
-          <div className="flex gap-4 my-auto">
-            <div className="flex flex-col w-1/2 gap-4 mx-auto">
+          <div className="flex flex-col gap-4 my-auto sm:flex-row">
+            <div className="flex flex-col w-full gap-4 mx-auto sm:w-1/2">
               <h2 className="text-[#303030] text-3xl font-bold">Login Form</h2>
               <p className="text-[#8A8988] font-medium]">
                 Already a Member? Log in here.
@@ -45,7 +44,8 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
-                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   className="bg-transparent outline-none"
                   errorMessage="Please enter email or username"
@@ -60,7 +60,8 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
-                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   errorMessage="Please enter a valid email"
                   label="Password"
@@ -75,12 +76,23 @@ const Registration = () => {
                   Remember Me
                 </Checkbox>
 
-                <Button type="reset" variant="flat">
+
+                <Button
+                  className="bg-[#838c48] text-white hover:bg-[#303030]"
+                  type="submit"
+                  variant="flat"
+                  size="lg"
+                  radius="sm"
+                >
+
                   LOG IN
                 </Button>
+                <p className="text-sm text-[#dd904c] hover:text-[#838c48] transition-all cursor-pointer">
+                  Lost your password ?
+                </p>
               </Form>
             </div>
-            <div className="flex flex-col w-1/2 gap-4 mx-auto">
+            <div className="flex flex-col w-full gap-4 mx-auto sm:w-1/2">
               <h2 className="text-[#303030] text-3xl font-bold">
                 Register Form
               </h2>
@@ -101,7 +113,8 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
-                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   errorMessage="Username"
                   label="Username"
@@ -114,7 +127,10 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
-                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
+
                   }}
                   errorMessage="username"
                   label="Email "
@@ -127,6 +143,7 @@ const Registration = () => {
                 <Select defaultSelectedKeys={["student"]} radius="none">
                   {role.map((role) => (
                     <SelectItem
+
                       classNames={{ wrapper: "bg-red-500" }}
                       key={role.key}
                     >
@@ -137,7 +154,8 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
-                    inputWrapper: "ring-1 ring-[#E2D6C1] bg-white ",
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   errorMessage="Please enter a valid email"
                   label="Password"
@@ -148,7 +166,16 @@ const Registration = () => {
                   radius="none"
                 />
 
-                <Button type="submit" variant="flat">
+
+
+                <Button
+                  className="bg-[#838c48] text-white hover:bg-[#303030]"
+                  type="submit"
+                  variant="flat"
+                  size="lg"
+                  radius="sm"
+                >
+
                   REGISTER
                 </Button>
               </Form>
