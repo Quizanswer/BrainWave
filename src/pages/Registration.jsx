@@ -17,6 +17,7 @@ const Registration = () => {
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
         <CommonWrapper>
+         
           <h2 className="py-1 text-4xl font-semibold">Registration</h2>
           <p>Home / Registration</p>
         </CommonWrapper>
