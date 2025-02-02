@@ -9,6 +9,7 @@ module.exports = {
     "./app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/components/navbar.js",
   ],
   theme: {
     container: {
@@ -76,6 +77,5 @@ module.exports = {
     },
   },
   darkMode: "class",
-
   plugins: [require("tailwindcss-animate"), nextui()],
 };

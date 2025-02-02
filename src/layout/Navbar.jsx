@@ -1,237 +1,196 @@
 import {
   Navbar,
+  NavbarBrand,
   NavbarContent,
-  Button,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
+  NavbarMenuItem,
+  Link,
+  Input,
 } from "@nextui-org/react";
-
-import { Link, NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "../hooks/AuthContextProvider";
-import { motion } from "framer-motion";
-import UserPopover from "@/components/UserPopover";
-
-import { Icons } from "@/assets/icons/Icons";
-import toast from "react-hot-toast";
+import React, { useState } from "react";
+import Logo from "../assets/images/NavLogo.png";
+import CommonWrapper from "../components/CommonWrapper";
+import { NavLink } from "react-router-dom";
+import LoginModal from "../components/LoginModal";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsloginopen] = useState(false);
 
-  const { user, logout } = useContext(AuthContext);
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
+  //  SERACHICON FOR MD DEVICE.
+  const SearchIcon = ({
+    size = 24,
+    strokeWidth = 1.5,
+    width,
+    height,
+    ...props
+  }) => {
+    return (
+      <svg
+        aria-hidden="true"
+        fill="none"
+        focusable="false"
+        height={height || size}
+        role="presentation"
+        viewBox="0 0 24 24"
+        width={width || size}
+        {...props}
+      >
+        <path
+          d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={strokeWidth}
+        />
+        <path
+          d="M22 22L20 20"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={strokeWidth}
+        />
+      </svg>
+    );
+  };
 
+  console.log("isLoginOpen", isLoginOpen);
   return (
-    <Navbar
-      isBordered={false}
-      isBlurred={false}
-      maxWidth="2xl"
-      isMenuOpen={isMenuOpen}
-      onMenuOpenChange={setIsMenuOpen}
-      className="fixed top-0 z-50 py-2 text-white  bg-black/30 dark:bg-background/50 backdrop-blur-sm"
-      classNames={{
-        item: [
-          "flex",
-          "relative",
-          "h-full",
-          "items-center",
-          "data-[active=true]:after:content-['']",
-          "data-[active=true]:after:absolute",
-          "data-[active=true]:after:bottom-0",
-          "data-[active=true]:after:left-0",
-          "data-[active=true]:after:right-0",
-          "data-[active=true]:after:h-[2px]",
-          "data-[active=true]:after:rounded-[2px]",
-          // 'data-[active=true]:after:bg-[#428ee6]',
-          "data-[active=true]:text-danger",
-          "data-[active=false]:hover:text-danger",
-        ],
-      }}
-    >
-      <NavbarContent className="md:hidden" justify="center">
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarContent justify="start" className="flex gap-12">
-        <motion.div
-          className="flex justify-center "
-          initial="hidden"
-          animate="visible"
-          variants={logoVariant}
+    <section className="bg-[#FDF6EA]">
+      {/* <section className="bg-red-600">
+        <CommonWrapper>
+          <section className="flex items-center text-white md:justify-between px-7">
+            <div className="flex items-center justify-center space-x-6 md:justify-start">
+              <div className="flex items-center space-x-2">
+                <IoMdCall className="text-2xl" /> <p>+015858547156</p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MdOutlineMailOutline className="text-2xl" />
+                <p>example@gmail.com</p>
+              </div>
+            </div>
+            <div className="items-center hidden space-x-2 md:flex">
+              <CiLocationOn className="text-2xl" />
+              <p>Feni, Chattagram,Bangladesh 3900</p>
+            </div>
+          </section>
+        </CommonWrapper>
+      </section> */}
+      <CommonWrapper>
+        <Navbar
+          classNames={{ wrapper: "bg-[#FDF6EA]" }}
+          onMenuOpenChange={setIsMenuOpen}
+          className="text-white "
+          maxWidth="full"
         >
-          <NavLink
-            to="/"
-            arial-label="home-page"
-            className={` ml-4 flex shrink-0 grow-0 justify-center`}
-          >
-            <Icons.logoICon className="text-danger dark:text-primary" />
-          </NavLink>
-        </motion.div>
-      </NavbarContent>
-
-      <NavbarContent as="div" className="items-center" justify="end">
-        <div className="hidden gap-8 md:flex">
-          <motion.div
-            initial="hidden"
-            className="flex gap-6"
-            animate="visible"
-            variants={menuVariant}
-          >
-            <motion.div variants={childVariant}>
-              <NavLink to="/">
-                {({ isActive }) => (
-                  <NavbarItem
-                    className="hover:text-danger link-underline"
-                    isActive={isActive}
-                  >
-                    {" "}
-                    Home{" "}
-                  </NavbarItem>
-                )}
+          <NavbarContent>
+            <NavbarMenuToggle
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className={`${
+                isMenuOpen ? "text-black" : "text-black"
+              } sm:hidden`}
+            />
+            <NavbarBrand className="space-x-3">
+              <NavLink className="flex items-center space-x-3 " to="/">
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className="hidden w-16 h-16 rounded-full md:block"
+                />
+                <h1 className="text-xl font-semibold text-black md:text-2xl">
+                  <span className="text-xl font-semibold text-orange-500 md:text-2xl">
+                    B
+                  </span>
+                  rainWave
+                </h1>
               </NavLink>
-            </motion.div>
+              <Input
+                classNames={{
+                  base: "max-w-full max-w-[18rem] lg:max-w-[32rem] xl:max-w-[35rem] h-10 lg:pl-16 xl:pl-0",
+                  mainWrapper: "h-full",
+                  input: "text-small",
 
-            <motion.div variants={childVariant}>
-              <NavLink to="/contact" aria-current="page">
-                {({ isActive }) => (
-                  <NavbarItem
-                    className="hover:text-danger link-underline"
-                    isActive={isActive}
-                  >
-                    Contact
-                  </NavbarItem>
-                )}
-              </NavLink>
-            </motion.div>
-          </motion.div>
-        </div>
-        {user && user.userStatus !== "banned" ? (
-          <Button
-            as={Link}
-            to={user.role === "admin" ? "/admin" : "/dashboard/profile"}
-            color="primary"
-            size="sm"
-            variant="bordered"
-            className="hidden font-medium md:flex border-divider"
-            startContent={
-              <Icons.settings className="animate-spinner-ease-spin" />
-            }
+                  inputWrapper:
+                    "h-full font-normal text-default-500 ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]",
+                }}
+                startContent={<SearchIcon size={18} />}
+                placeholder="Search here..."
+                radius="none"
+                type="search"
+              />
+            </NavbarBrand>
+          </NavbarContent>
+
+          <NavbarContent className="hidden gap-4 lg:flex " justify="center">
+            <NavbarItem>
+              <Link href="/">Home</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link aria-current="page" href="/course">
+                Course
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href="/blog">Blog</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href="/help">Help Center</Link>
+            </NavbarItem>
+          </NavbarContent>
+          <NavbarContent
+            justify="center"
+            className="items-center hidden md:flex"
           >
-            {user && user.role === "admin" ? "Dashboard" : "Profile"}
-          </Button>
-        ) : (
-          <Button
-            onPress={() =>
-              toast.error("Youre Banned, You Cant Access Dashboard Right Now!")
-            }
-            color="primary"
-            size="sm"
-            variant="bordered"
-            className="hidden font-medium md:flex border-divider"
-            startContent={
-              <Icons.settings className="animate-spinner-ease-spin" />
-            }
-          >
-            {user && user.role === "admin" ? "Dashboard" : "Profile"}
-          </Button>
-        )}
-
-        <div className="hidden  md:block">{/* <ModeToggle /> */}</div>
-      </NavbarContent>
-      <NavbarMenu>
-        <NavLink to="/">
-          {({ isActive }) => (
-            <NavbarItem
-              className="mb-4 hover:text-danger h-fit"
-              isActive={isActive}
-            >
-              Home
+            <NavbarItem>
+              <Link onClick={() => setIsloginopen(true)} href="#">
+                Login
+              </Link>
             </NavbarItem>
-          )}
-        </NavLink>
-
-        <NavLink to="/tests" aria-current="page">
-          {({ isActive }) => (
-            <NavbarItem
-              onClick={() => setIsMenuOpen(false)}
-              className="mb-4 hover:text-danger h-fit"
-              isActive={isActive}
-            >
-              Tests
+            <NavbarItem>
+              <span className="text-black">|</span>
             </NavbarItem>
-          )}
-        </NavLink>
-
-        <NavLink to="/contact" aria-current="page">
-          {({ isActive }) => (
-            <NavbarItem
-              onClick={() => setIsMenuOpen(false)}
-              className="mb-4 hover:text-danger h-fit"
-              isActive={isActive}
-            >
-              Contact
+            <NavbarItem>
+              <Link href="/registration">Register</Link>
             </NavbarItem>
-          )}
-        </NavLink>
-      </NavbarMenu>
+          </NavbarContent>
+          <NavbarMenu>
+            {menuItems.map((item, index) => (
+              <NavbarMenuItem key={`${item}-${index}`}>
+                <Link
+                  className="w-full"
+                  color={
+                    index === 2
+                      ? "primary"
+                      : index === menuItems.length - 1
+                      ? "danger"
+                      : "foreground"
+                  }
+                  href="#"
+                  size="lg"
+                >
+                  {item}
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </NavbarMenu>
+        </Navbar>
+      </CommonWrapper>
 
-      <NavbarContent justify="end" className="flex gap-12">
-        {user ? (
-          <UserPopover user={user} logout={logout} />
-        ) : (
-          <div>
-            <Button
-              as={Link}
-              to={"/login"}
-              color="default"
-              size="sm"
-              className="text-white"
-              variant="flat"
-            >
-              Login
-            </Button>
-          </div>
-        )}
-      </NavbarContent>
-    </Navbar>
+      {isLoginOpen && <LoginModal setIsloginopen={setIsloginopen} />}
+    </section>
   );
 }
-
-const logoVariant = {
-  hidden: {
-    y: -100,
-  },
-  visible: {
-    y: 0,
-    transition: {
-      duration: 1,
-      type: "spring",
-      stiffness: 80,
-    },
-  },
-};
-const menuVariant = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-const childVariant = {
-  hidden: {
-    y: -100,
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-
-    transition: {
-      duration: 1,
-    },
-  },
-};
