@@ -76,6 +76,7 @@ const Registration = () => {
                   Remember Me
                 </Checkbox>
 
+
                 <Button
                   className="bg-[#838c48] text-white hover:bg-[#303030]"
                   type="submit"
@@ -83,6 +84,7 @@ const Registration = () => {
                   size="lg"
                   radius="sm"
                 >
+
                   LOG IN
                 </Button>
                 <p className="text-sm text-[#dd904c] hover:text-[#838c48] transition-all cursor-pointer">
@@ -125,8 +127,10 @@ const Registration = () => {
                 <Input
                   isRequired
                   classNames={{
+
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
+
                   }}
                   errorMessage="username"
                   label="Email "
@@ -135,12 +139,12 @@ const Registration = () => {
                   placeholder=" "
                   type="text"
                   radius="none"
-                  className=""
                 />
                 <Select defaultSelectedKeys={["student"]} radius="none">
                   {role.map((role) => (
                     <SelectItem
-                      classNames={{ description: "bg-red-500" }}
+
+                      classNames={{ wrapper: "bg-red-500" }}
                       key={role.key}
                     >
                       {role.label}
@@ -162,6 +166,8 @@ const Registration = () => {
                   radius="none"
                 />
 
+
+
                 <Button
                   className="bg-[#838c48] text-white hover:bg-[#303030]"
                   type="submit"
@@ -169,6 +175,7 @@ const Registration = () => {
                   size="lg"
                   radius="sm"
                 >
+
                   REGISTER
                 </Button>
               </Form>
