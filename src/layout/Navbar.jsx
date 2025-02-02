@@ -7,21 +7,17 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Link,
-  Button,
   Input,
 } from "@nextui-org/react";
-import React from "react";
-import Logo from "../assets/images/NavLogo.png"
+import React, { useState } from "react";
+import Logo from "../assets/images/NavLogo.png";
 import CommonWrapper from "../components/CommonWrapper";
-import { IoMdCall } from "react-icons/io";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { NavLink } from "react-router-dom"
-import { CiLocationOn } from "react-icons/ci";
-import { CiSearch } from "react-icons/ci";
-
+import { NavLink } from "react-router-dom";
+import LoginModal from "../components/LoginModal";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsloginopen] = useState(false);
 
   const menuItems = [
     "Profile",
@@ -36,7 +32,13 @@ export default function Header() {
     "Log Out",
   ];
   //  SERACHICON FOR MD DEVICE.
-  const SearchIcon = ({ size = 24, strokeWidth = 1.5, width, height, ...props }) => {
+  const SearchIcon = ({
+    size = 24,
+    strokeWidth = 1.5,
+    width,
+    height,
+    ...props
+  }) => {
     return (
       <svg
         aria-hidden="true"
@@ -66,37 +68,56 @@ export default function Header() {
     );
   };
 
+  console.log("isLoginOpen", isLoginOpen);
   return (
-    <section className="bg-gray-100" >
-      <section className="bg-red-600">
+    <section className="bg-[#FDF6EA]">
+      {/* <section className="bg-red-600">
         <CommonWrapper>
-          <section className="flex items-center md:justify-between px-7 text-white">
-            <div className="flex items-center justify-center md:justify-start space-x-6">
-              <div className="flex items-center space-x-2"><IoMdCall className="text-2xl" /> <p>+015858547156</p></div>
+          <section className="flex items-center text-white md:justify-between px-7">
+            <div className="flex items-center justify-center space-x-6 md:justify-start">
               <div className="flex items-center space-x-2">
-                <MdOutlineMailOutline className="text-2xl" /> <p>example@gmail.com</p>
+                <IoMdCall className="text-2xl" /> <p>+015858547156</p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MdOutlineMailOutline className="text-2xl" />
+                <p>example@gmail.com</p>
               </div>
             </div>
-            <div className="md:flex items-center space-x-2 hidden">
-              <CiLocationOn className="text-2xl" /> <p>Feni, Chattagram,Bangladesh 3900</p>
+            <div className="items-center hidden space-x-2 md:flex">
+              <CiLocationOn className="text-2xl" />
+              <p>Feni, Chattagram,Bangladesh 3900</p>
             </div>
           </section>
         </CommonWrapper>
-      </section>
+      </section> */}
       <CommonWrapper>
-        <Navbar onMenuOpenChange={setIsMenuOpen} className="text-white bg-gray-100 bg-transparent" maxWidth="full">
-
+        <Navbar
+          classNames={{ wrapper: "bg-[#FDF6EA]" }}
+          onMenuOpenChange={setIsMenuOpen}
+          className="text-white "
+          maxWidth="full"
+        >
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className={`${isMenuOpen ? "text-black" : "text-black"} sm:hidden`}
-
+              className={`${
+                isMenuOpen ? "text-black" : "text-black"
+              } sm:hidden`}
             />
             <NavbarBrand className="space-x-3">
-
-              <NavLink className="space-x-3 flex items-center " to="/">
-                <img src={Logo} alt="logo" className="w-16 h-16 rounded-full hidden md:block" />
-                <h1 className="font-semibold md:text-2xl text-xl text-black"><span className="md:text-2xl text-xl font-semibold text-orange-500">B</span>rainWave</h1></NavLink>
+              <NavLink className="flex items-center space-x-3 " to="/">
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className="hidden w-16 h-16 rounded-full md:block"
+                />
+                <h1 className="text-xl font-semibold text-black md:text-2xl">
+                  <span className="text-xl font-semibold text-orange-500 md:text-2xl">
+                    B
+                  </span>
+                  rainWave
+                </h1>
+              </NavLink>
               <Input
                 classNames={{
                   base: "max-w-full max-w-[18rem] lg:max-w-[32rem] xl:max-w-[35rem] h-10 lg:pl-16 xl:pl-0",
@@ -104,49 +125,46 @@ export default function Header() {
                   input: "text-small",
 
                   inputWrapper:
-                    "h-full font-normal text-default-500 bg-white ring-1",
+                    "h-full font-normal text-default-500 ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]",
                 }}
                 startContent={<SearchIcon size={18} />}
-                placeholder="Type to search..."
-                size="sm"
-                className="pl-3"
+                placeholder="Search here..."
+                radius="none"
                 type="search"
               />
-              
             </NavbarBrand>
           </NavbarContent>
 
-          <NavbarContent className="hidden lg:flex gap-4 " justify="center">
-
+          <NavbarContent className="hidden gap-4 lg:flex " justify="center">
             <NavbarItem>
-              <Link href="/">
-                Home
-              </Link>
+              <Link href="/">Home</Link>
             </NavbarItem>
-            <NavbarItem isActive>
+            <NavbarItem>
               <Link aria-current="page" href="/course">
                 Course
               </Link>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/blog">
-                Blog
-              </Link>
+              <Link href="/blog">Blog</Link>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/help">
-                Help Center
-              </Link>
+              <Link href="/help">Help Center</Link>
             </NavbarItem>
           </NavbarContent>
-          <NavbarContent justify="center" className="hidden md:flex items-center">
-            <NavbarItem >
-              <Link href="#">Login</Link>
+          <NavbarContent
+            justify="center"
+            className="items-center hidden md:flex"
+          >
+            <NavbarItem>
+              <Link onClick={() => setIsloginopen(true)} href="#">
+                Login
+              </Link>
             </NavbarItem>
             <NavbarItem>
-              <Button as={Link} color="primary" href="#" variant="flat">
-                Sign Up
-              </Button>
+              <span className="text-black">|</span>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href="/registration">Register</Link>
             </NavbarItem>
           </NavbarContent>
           <NavbarMenu>
@@ -155,7 +173,11 @@ export default function Header() {
                 <Link
                   className="w-full"
                   color={
-                    index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                    index === 2
+                      ? "primary"
+                      : index === menuItems.length - 1
+                      ? "danger"
+                      : "foreground"
                   }
                   href="#"
                   size="lg"
@@ -167,7 +189,8 @@ export default function Header() {
           </NavbarMenu>
         </Navbar>
       </CommonWrapper>
+
+      {isLoginOpen && <LoginModal setIsloginopen={setIsloginopen} />}
     </section>
   );
 }
-
