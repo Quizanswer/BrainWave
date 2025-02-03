@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import CommonWrapper from "../components/CommonWrapper";
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  SelectItem,
-} from "@nextui-org/react";
+import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
 import Login from "../components/Login";
+// import { useMutation } from "@tanstack/react-query";
+// import { registerUser } from "../Api/Api";
 const role = [
-  { key: "student", label: "Ttudent" },
-  { key: "teacher", label: "Teacher" },
+  { key: "admin", label: "Admin" },
+  { key: "examiner", label: "Examiner" },
+  { key: "candidate", label: "Candidate" },
 ];
-const Registration = () => {
 
-  const [action, setAction] = React.useState(null);
-  console.log(action)
+const Registration = () => {
+  const [action, setAction] = useState(null);
+
+  // const { error, isPending, isSuccess, mutate } = useMutation({
+  //   mutationFn: registerUser,
+  // });
+
+  // console.log("error", error);
+  // console.log("isPending", isPending);
+  // console.log("isSuccess", isSuccess);
+
   return (
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
@@ -46,14 +50,27 @@ const Registration = () => {
               <Form
                 className="flex flex-col w-full gap-4"
                 validationBehavior="native"
-                onReset={() => setAction("reset")}
                 onSubmit={(e) => {
                   e.preventDefault();
                   let data = Object.fromEntries(new FormData(e.currentTarget));
-
-                  setAction(`submit ${JSON.stringify(data)}`);
+                  setAction(`${JSON.stringify(data)}`);
+                  // mutate(action);
                 }}
               >
+                <Input
+                  isRequired
+                  classNames={{
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
+                  }}
+                  errorMessage="Please input your name"
+                  label="Name"
+                  labelPlacement="outside"
+                  name="name"
+                  placeholder=" "
+                  type="text"
+                  radius="none"
+                />
                 <Input
                   isRequired
                   classNames={{
@@ -74,24 +91,14 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="username"
+                  errorMessage="input your mail"
                   label="Email "
                   labelPlacement="outside"
-                  name="username"
+                  name="email"
                   placeholder=" "
-                  type="text"
+                  type="email"
                   radius="none"
                 />
-                <Select defaultSelectedKeys={["student"]} radius="none">
-                  {role.map((role) => (
-                    <SelectItem
-                      classNames={{ wrapper: "bg-red-500" }}
-                      key={role.key}
-                    >
-                      {role.label}
-                    </SelectItem>
-                  ))}
-                </Select>
                 <Input
                   isRequired
                   classNames={{
@@ -106,6 +113,15 @@ const Registration = () => {
                   type="password"
                   radius="none"
                 />
+                <Select
+                  defaultSelectedKeys={["candidate"]}
+                  radius="none"
+                  name="role"
+                >
+                  {role.map((role) => (
+                    <SelectItem key={role.key}>{role.label}</SelectItem>
+                  ))}
+                </Select>
 
                 <Button
                   className="bg-[#838c48] text-white hover:bg-[#303030]"

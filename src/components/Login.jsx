@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { loginrUser } from "../Api/Api";
+
 const Login = ({ Class }) => {
+  const [action, setAction] = useState(null);
+  const { error, isPending, isSuccess, mutate } = useMutation({
+    mutationFn: loginrUser,
+  });
+
   return (
     <Form
       className={`flex flex-col w-full gap-4 ${Class}`}
       validationBehavior="native"
-      onReset={() => setAction("reset")}
       onSubmit={(e) => {
         e.preventDefault();
         let data = Object.fromEntries(new FormData(e.currentTarget));
-
-        setAction(`submit ${JSON.stringify(data)}`);
+        setAction(`${JSON.stringify(data)}`);
+        mutate(action);
       }}
     >
       <Input
         isRequired
         classNames={{
           inputWrapper:
-            "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] py-6 font-medium ",
+            "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]  font-medium ",
         }}
         className="bg-transparent outline-none"
         errorMessage="Please enter email or username"
         label="Username or Email Address "
         labelPlacement="outside"
-        name="username"
+        name="email"
         placeholder=" "
-        type="text"
+        type="email"
         radius="none"
       />
 
@@ -33,7 +41,7 @@ const Login = ({ Class }) => {
         isRequired
         classNames={{
           inputWrapper:
-            "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]  py-6 font-medium",
+            "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]   font-medium",
         }}
         errorMessage="Please enter a valid email"
         label="Password"
