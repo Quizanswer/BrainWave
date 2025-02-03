@@ -78,9 +78,9 @@ const Registration = () => {
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   errorMessage="Username"
-                  label="Username"
+                  label="name"
                   labelPlacement="outside"
-                  name="username"
+                  name="name"
                   placeholder=" "
                   type="text"
                   radius="none"
