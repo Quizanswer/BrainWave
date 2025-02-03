@@ -14,6 +14,9 @@ const role = [
   { key: "teacher", label: "Teacher" },
 ];
 const Registration = () => {
+
+  const [action, setAction] = React.useState(null);
+  console.log(action)
   return (
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
@@ -58,9 +61,9 @@ const Registration = () => {
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
                   errorMessage="Username"
-                  label="Username"
+                  label="name"
                   labelPlacement="outside"
-                  name="username"
+                  name="name"
                   placeholder=" "
                   type="text"
                   radius="none"
