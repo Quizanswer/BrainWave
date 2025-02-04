@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import CommonWrapper from "../components/CommonWrapper";
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  SelectItem,
-} from "@nextui-org/react";
+import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
 import Login from "../components/Login";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { registerUser } from "../Api/Api";
+import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
+// import { registerUser } from "../Api/Api";
 const role = [
-  { key: "student", label: "Ttudent" },
-  { key: "teacher", label: "Teacher" },
+  { key: "admin", label: "Admin" },
+  { key: "examiner", label: "Examiner" },
+  { key: "candidate", label: "Candidate" },
 ];
+
 const Registration = () => {
+  // const [action, setAction] = useState("");
+
+  // const userRegister = async (userData) => {
+  //   const { data } = await axios.post(
+  //     "https://test-alchemy-backend.onrender.com/user/signup",
+  //     userData
+  //   );
+  //   console.log("Data", data);
+  // };
+
+  const { mutate, error, isSuccess } = useMutation({
+    mutationFn: registerUser,
+  });
+
   return (
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
@@ -43,12 +58,11 @@ const Registration = () => {
               <Form
                 className="flex flex-col w-full gap-4"
                 validationBehavior="native"
-                onReset={() => setAction("reset")}
                 onSubmit={(e) => {
                   e.preventDefault();
                   let data = Object.fromEntries(new FormData(e.currentTarget));
-
-                  setAction(`submit ${JSON.stringify(data)}`);
+                  mutate(data);
+                  toast.success("Register successfull");
                 }}
               >
                 <Input
@@ -57,7 +71,21 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="Username"
+                  errorMessage="Please input your name"
+                  label="Name"
+                  labelPlacement="outside"
+                  name="name"
+                  placeholder=" "
+                  type="text"
+                  radius="none"
+                />
+                <Input
+                  isRequired
+                  classNames={{
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
+                  }}
+                  errorMessage="Please input your Username"
                   label="Username"
                   labelPlacement="outside"
                   name="username"
@@ -71,31 +99,21 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="username"
+                  errorMessage="Please input your Email"
                   label="Email "
                   labelPlacement="outside"
-                  name="username"
+                  name="email"
                   placeholder=" "
-                  type="text"
+                  type="email"
                   radius="none"
                 />
-                <Select defaultSelectedKeys={["student"]} radius="none">
-                  {role.map((role) => (
-                    <SelectItem
-                      classNames={{ wrapper: "bg-red-500" }}
-                      key={role.key}
-                    >
-                      {role.label}
-                    </SelectItem>
-                  ))}
-                </Select>
                 <Input
                   isRequired
                   classNames={{
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="Please enter a valid email"
+                  errorMessage="Please input your Password"
                   label="Password"
                   labelPlacement="outside"
                   name="password"
@@ -103,6 +121,15 @@ const Registration = () => {
                   type="password"
                   radius="none"
                 />
+                <Select
+                  defaultSelectedKeys={["candidate"]}
+                  radius="none"
+                  name="role"
+                >
+                  {role.map((role) => (
+                    <SelectItem key={role.key}>{role.label}</SelectItem>
+                  ))}
+                </Select>
 
                 <Button
                   className="bg-[#838c48] text-white hover:bg-[#303030]"

@@ -14,7 +14,6 @@ const LoginModal = ({ setIsloginopen }) => {
     document.addEventListener("mousedown", handler);
   });
 
-  console.log("loginModal,loginModal");
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full p-4 bg-black md:px-8 bg-opacity-80">
       <div ref={loginModal} className="w-full max-w-xl py-5 bg-white sm:py-10">
