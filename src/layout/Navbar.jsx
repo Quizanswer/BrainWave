@@ -9,11 +9,12 @@ import {
   Link,
   Input,
 } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../assets/images/NavLogo.png";
 import CommonWrapper from "../components/CommonWrapper";
 import { NavLink } from "react-router-dom";
 import LoginModal from "../components/LoginModal";
+import { Appcontext } from "../context/appContex";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,27 +69,15 @@ export default function Header() {
     );
   };
 
+  const { token, setToken } = useContext(Appcontext);
+
+  console.log("token", token);
+  const userLogout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+  };
   return (
     <section className="bg-[#FDF6EA]">
-      {/* <section className="bg-red-600">
-        <CommonWrapper>
-          <section className="flex items-center text-white md:justify-between px-7">
-            <div className="flex items-center justify-center space-x-6 md:justify-start">
-              <div className="flex items-center space-x-2">
-                <IoMdCall className="text-2xl" /> <p>+015858547156</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MdOutlineMailOutline className="text-2xl" />
-                <p>example@gmail.com</p>
-              </div>
-            </div>
-            <div className="items-center hidden space-x-2 md:flex">
-              <CiLocationOn className="text-2xl" />
-              <p>Feni, Chattagram,Bangladesh 3900</p>
-            </div>
-          </section>
-        </CommonWrapper>
-      </section> */}
       <CommonWrapper>
         <Navbar
           classNames={{ wrapper: "bg-[#FDF6EA]" }}
@@ -139,26 +128,35 @@ export default function Header() {
               <Link href="/">Home</Link>
             </NavbarItem>
             <NavbarItem>
-              <Link aria-current="page" href="/course">
-                Course
+              <Link aria-current="page" href="/question">
+                Create Question
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/blog">Blog</Link>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/help">Help Center</Link>
+              <Link href="/quiz">Quiz</Link>
             </NavbarItem>
           </NavbarContent>
           <NavbarContent
             justify="center"
             className="items-center hidden md:flex"
           >
-            <NavbarItem>
-              <Link onClick={() => setIsloginopen(true)} href="#">
-                Login
-              </Link>
-            </NavbarItem>
+            {token ? (
+              <NavbarItem>
+                <Link onPress={userLogout} href="#">
+                  Logout
+                </Link>
+              </NavbarItem>
+            ) : (
+              <NavbarItem>
+                <Link onPress={() => setIsloginopen(true)} href="#">
+                  Login
+                </Link>
+              </NavbarItem>
+            )}
+
             <NavbarItem>
               <span className="text-black">|</span>
             </NavbarItem>
