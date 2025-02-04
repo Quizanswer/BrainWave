@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { loginrUser } from "../Api/Api";
-
+import axios from "axios";
+import toast from "react-hot-toast";
 const Login = ({ Class }) => {
-  const [action, setAction] = useState(null);
-  const { error, isPending, isSuccess, mutate } = useMutation({
+  // const [action, setAction] = useState("");
+
+  // // const userSignin = async (userData) => {
+  // //   const { data } = await axios.post(
+  // //     "https://test-alchemy-backend.onrender.com/user/signin",
+  // //     userData
+  // //   );
+  // // };
+
+  const { mutate, error, isSuccess } = useMutation({
     mutationFn: loginrUser,
   });
 
@@ -17,8 +25,10 @@ const Login = ({ Class }) => {
       onSubmit={(e) => {
         e.preventDefault();
         let data = Object.fromEntries(new FormData(e.currentTarget));
-        setAction(`${JSON.stringify(data)}`);
-        mutate(action);
+        // setAction(`${JSON.stringify(data)}`);
+        // setAction(data);
+        mutate(data);
+        toast.success("Login successfull");
       }}
     >
       <Input
@@ -29,7 +39,7 @@ const Login = ({ Class }) => {
         }}
         className="bg-transparent outline-none"
         errorMessage="Please enter email or username"
-        label="Username or Email Address "
+        label=" Email Address "
         labelPlacement="outside"
         name="email"
         placeholder=" "
