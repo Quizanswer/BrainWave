@@ -3,11 +3,8 @@ import CommonWrapper from "../components/CommonWrapper";
 import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
 import Login from "../components/Login";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { registerUser } from "../Api/Api";
 import { useMutation } from "@tanstack/react-query";
-// import { useMutation } from "@tanstack/react-query";
-// import { registerUser } from "../Api/Api";
 const role = [
   { key: "admin", label: "Admin" },
   { key: "examiner", label: "Examiner" },
@@ -15,18 +12,13 @@ const role = [
 ];
 
 const Registration = () => {
-  // const [action, setAction] = useState("");
-
-  // const userRegister = async (userData) => {
-  //   const { data } = await axios.post(
-  //     "https://test-alchemy-backend.onrender.com/user/signup",
-  //     userData
-  //   );
-  //   console.log("Data", data);
-  // };
-
-  const { mutate, error, isSuccess } = useMutation({
+  const { mutate, error, isPending, isSuccess } = useMutation({
     mutationFn: registerUser,
+    onSuccess: (data) => {
+      if (data) {
+        toast.success("Register successfull");
+      }
+    },
   });
 
   return (
@@ -62,7 +54,9 @@ const Registration = () => {
                   e.preventDefault();
                   let data = Object.fromEntries(new FormData(e.currentTarget));
                   mutate(data);
-                  toast.success("Register successfull");
+                }}
+                onReset={() => {
+                  ("reset");
                 }}
               >
                 <Input
@@ -131,15 +125,27 @@ const Registration = () => {
                   ))}
                 </Select>
 
-                <Button
-                  className="bg-[#838c48] text-white hover:bg-[#303030]"
-                  type="submit"
-                  variant="flat"
-                  size="lg"
-                  radius="sm"
-                >
-                  REGISTER
-                </Button>
+                {isPending ? (
+                  <Button
+                    isLoading
+                    variant="flat"
+                    size="lg"
+                    radius="sm"
+                    className="bg-[#838c48] text-white"
+                  >
+                    Registering...
+                  </Button>
+                ) : (
+                  <Button
+                    className="bg-[#838c48] text-white hover:bg-[#303030]"
+                    type="submit"
+                    variant="flat"
+                    size="lg"
+                    radius="sm"
+                  >
+                    REGISTER
+                  </Button>
+                )}
               </Form>
             </div>
           </div>
