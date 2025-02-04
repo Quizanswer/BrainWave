@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { loginrUser } from "../Api/Api";
 import toast from "react-hot-toast";
+import { Appcontext } from "../context/appContex";
 const Login = ({ Class, setIsloginopen }) => {
+  const { token, setToken } = useContext(Appcontext);
+
   const { mutate, error, isPending } = useMutation({
     mutationFn: loginrUser,
     onSuccess: (data) => {
@@ -11,6 +14,7 @@ const Login = ({ Class, setIsloginopen }) => {
         toast.success("Login successfull");
         localStorage.setItem("token", data.token);
         setIsloginopen(false);
+        setToken(data.token);
       }
     },
   });
