@@ -99,9 +99,8 @@ export default function Header() {
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className={`${
-                isMenuOpen ? "text-black" : "text-black"
-              } sm:hidden`}
+              className={`${isMenuOpen ? "text-black" : "text-black"
+                } sm:hidden`}
             />
             <NavbarBrand className="space-x-3">
               <NavLink className="flex items-center space-x-3 " to="/">
@@ -139,15 +138,15 @@ export default function Header() {
               <Link href="/">Home</Link>
             </NavbarItem>
             <NavbarItem>
-              <Link aria-current="page" href="/course">
-                Course
+              <Link aria-current="page" href="/question">
+                Create Question
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/blog">Blog</Link>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/help">Help Center</Link>
+              <Link href="/quiz">Quiz</Link>
             </NavbarItem>
           </NavbarContent>
           <NavbarContent
@@ -175,8 +174,8 @@ export default function Header() {
                     index === 2
                       ? "primary"
                       : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                        ? "danger"
+                        : "foreground"
                   }
                   href="#"
                   size="lg"
