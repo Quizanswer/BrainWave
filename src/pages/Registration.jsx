@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import CommonWrapper from "../components/CommonWrapper";
 import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
 import Login from "../components/Login";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { registerUser } from "../Api/Api";
+import { useMutation } from "@tanstack/react-query";
 // import { useMutation } from "@tanstack/react-query";
 // import { registerUser } from "../Api/Api";
 const role = [
@@ -11,15 +15,19 @@ const role = [
 ];
 
 const Registration = () => {
-  const [action, setAction] = useState(null);
+  // const [action, setAction] = useState("");
 
-  // const { error, isPending, isSuccess, mutate } = useMutation({
-  //   mutationFn: registerUser,
-  // });
+  // const userRegister = async (userData) => {
+  //   const { data } = await axios.post(
+  //     "https://test-alchemy-backend.onrender.com/user/signup",
+  //     userData
+  //   );
+  //   console.log("Data", data);
+  // };
 
-  // console.log("error", error);
-  // console.log("isPending", isPending);
-  // console.log("isSuccess", isSuccess);
+  const { mutate, error, isSuccess } = useMutation({
+    mutationFn: registerUser,
+  });
 
   return (
     <div className="">
@@ -53,8 +61,8 @@ const Registration = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   let data = Object.fromEntries(new FormData(e.currentTarget));
-                  setAction(`${JSON.stringify(data)}`);
-                  // mutate(action);
+                  mutate(data);
+                  toast.success("Register successfull");
                 }}
               >
                 <Input
@@ -77,10 +85,10 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="Username"
-                  label="name"
+                  errorMessage="Please input your Username"
+                  label="Username"
                   labelPlacement="outside"
-                  name="name"
+                  name="username"
                   placeholder=" "
                   type="text"
                   radius="none"
@@ -91,7 +99,7 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="input your mail"
+                  errorMessage="Please input your Email"
                   label="Email "
                   labelPlacement="outside"
                   name="email"
@@ -105,7 +113,7 @@ const Registration = () => {
                     inputWrapper:
                       "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
                   }}
-                  errorMessage="Please enter a valid email"
+                  errorMessage="Please input your Password"
                   label="Password"
                   labelPlacement="outside"
                   name="password"

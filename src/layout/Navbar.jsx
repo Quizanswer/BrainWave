@@ -68,7 +68,6 @@ export default function Header() {
     );
   };
 
-  console.log("isLoginOpen", isLoginOpen);
   return (
     <section className="bg-[#FDF6EA]">
       {/* <section className="bg-red-600">
