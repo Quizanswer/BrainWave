@@ -27,7 +27,7 @@ const LoginModal = ({ setIsloginopen }) => {
 
         <div className="bg-[#f2f2f2] py-8 mt-10">
           <div className="flex flex-col items-center justify-center gap-4 px-8 text-white sm:flex-row">
-            <div className="w-full sm:w-1/2 flex items-center gap-2 bg-[#2d4373] hover:bg-[#DA853D] transition-all p-3 rounded-sm cursor-pointer">
+            <div className="w-full sm:w-1/2 flex items-center gap-2 bg-[#2d4373] hover:border-2 transition-all p-3 rounded-sm cursor-pointer">
               <span className="text-xl">
                 <FaFacebookF />
               </span>
