@@ -5,6 +5,7 @@ import Registration from "../pages/Registration";
 import Home from "../pages/Home";
 import Quiz from "../pages/Quiz";
 import Question from "../pages/Question";
+import MCQ from "../pages/MCQ";
 
 const routes = createBrowserRouter([
   {
@@ -17,12 +18,14 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-
         path: "/quiz",
         element: <Quiz />,
       },
       {
-
+        path: "/mcq",
+        element: <MCQ />,
+      },
+      {
         path: "/question",
         element: <Question />,
       },
