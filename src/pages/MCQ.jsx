@@ -11,8 +11,6 @@ import {
 
 const MCQ = () => {
   const [submitted, setSubmitted] = useState(null);
-  const [options, setOptions] = useState("");
-  const [itemList, setItemList] = useState([]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -20,9 +18,6 @@ const MCQ = () => {
     setSubmitted(data);
   };
 
-  const addAnswer = () => {
-    if (options.length > 1) {
-      setItemList((pre) => {
         return [...pre, options];
       });
     }
@@ -30,8 +25,6 @@ const MCQ = () => {
   };
 
   const handleClose = (itemRemove) => {
-    setItemList(itemList.filter((item) => item !== itemRemove));
-  };
 
   return (
     <div className="">
@@ -75,14 +68,7 @@ const MCQ = () => {
                 type="text"
                 radius="none"
                 value={options}
-                onChange={(e) => {
-                  setOptions(e.target.value);
-                }}
-              />
-              <Button onPress={addAnswer}>Add answer</Button>
-            </div>
-            <div className="flex gap-2 py-4">
-              {itemList.map((item, index) => (
+
                 <Chip
                   key={index}
                   variant="flat"
@@ -93,24 +79,7 @@ const MCQ = () => {
               ))}
             </div>
             <div className="flex flex-wrap w-full gap-4 md:flex-nowrap">
-              <Select
-                className="max-w-xs"
-                label="Select an answer"
-                name="correctAns"
-              >
-                {itemList.map((item, i) => (
-                  <SelectItem key={(item, i)}>{item}</SelectItem>
-                ))}
-              </Select>
 
-              <div>
-                <Input
-                  label="Mark"
-                  labelPlacement="inside"
-                  type="number"
-                  name="mark"
-                />
-              </div>
             </div>
           </div>
           <Button type="submit" variant="flat">
