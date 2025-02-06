@@ -1,6 +1,6 @@
 import axious from "axios";
 
-const API = axious.create({
+export const API = axious.create({
   baseURL: "https://test-alchemy-backend.onrender.com",
 });
 
