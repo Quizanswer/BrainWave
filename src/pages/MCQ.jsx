@@ -11,21 +11,13 @@ import {
 
 const MCQ = () => {
   const [submitted, setSubmitted] = useState(null);
-  const [options, setOptions] = useState("");
-  const [item, setItem] = useState([]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
     setSubmitted(data);
   };
 
-  const handleOnchange = (e) => {
-    setOptions(e.target.value);
-  };
-
-  const addItem = () => {
-    if (options.length > 1) {
-      setItem((pre) => {
         return [...pre, options];
       });
     }
@@ -33,28 +25,7 @@ const MCQ = () => {
   };
 
   const handleClose = (itemRemove) => {
-    setItem(item.filter((fruit) => fruit !== itemRemove));
-    if (item.length === 0) {
-      setItem(item);
-    }
-  };
 
-  console.log("options", options);
-  // const animals = [
-  //   { key: "cat", label: "Cat" },
-  //   { key: "dog", label: "Dog" },
-  //   { key: "elephant", label: "Elephant" },
-  //   { key: "lion", label: "Lion" },
-  //   { key: "tiger", label: "Tiger" },
-  //   { key: "giraffe", label: "Giraffe" },
-  //   { key: "dolphin", label: "Dolphin" },
-  //   { key: "penguin", label: "Penguin" },
-  //   { key: "zebra", label: "Zebra" },
-  //   { key: "shark", label: "Shark" },
-  //   { key: "whale", label: "Whale" },
-  //   { key: "otter", label: "Otter" },
-  //   { key: "crocodile", label: "Crocodile" },
-  // ];
   return (
     <div className="">
       <div className="bg-[#DA853D] py-8 ">
@@ -97,14 +68,7 @@ const MCQ = () => {
                 type="text"
                 radius="none"
                 value={options}
-                onChange={handleOnchange}
-              />
-              <Button onPress={addItem} radius="none">
-                Add answer
-              </Button>
-            </div>
-            <div className="flex gap-2 py-4">
-              {item.map((item, index) => (
+
                 <Chip
                   key={index}
                   variant="flat"
@@ -115,11 +79,7 @@ const MCQ = () => {
               ))}
             </div>
             <div className="flex flex-wrap w-full gap-4 md:flex-nowrap">
-              <Select className="max-w-xs" label="Select an answer">
-                {item.map((animal, i) => (
-                  <SelectItem key={(animal, i)}>{animal.label}</SelectItem>
-                ))}
-              </Select>
+
             </div>
           </div>
           <Button type="submit" variant="flat">
