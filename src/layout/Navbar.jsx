@@ -68,21 +68,20 @@ export default function Header() {
       </svg>
     );
   };
-
   const { token, setToken } = useContext(Appcontext);
 
-  console.log("token", token);
   const userLogout = () => {
     setToken("");
     localStorage.removeItem("token");
   };
+
   return (
     <section className="bg-[#FDF6EA]">
       <CommonWrapper>
         <Navbar
-          classNames={{ wrapper: "bg-[#FDF6EA]" }}
+          classNames={{ wrapper: "!bg-transparent" }}
           onMenuOpenChange={setIsMenuOpen}
-          className="text-white "
+          className="text-white bg-transparent "
           maxWidth="full"
         >
           <NavbarContent>
@@ -92,34 +91,32 @@ export default function Header() {
                 isMenuOpen ? "text-black" : "text-black"
               } sm:hidden`}
             />
-            <NavbarBrand className="space-x-3">
-              <NavLink className="flex items-center space-x-3 " to="/">
+            <NavbarBrand className="flex justify-between gap-5 ">
+              <NavLink className="flex items-center gap-4 " to="/">
                 <img
                   src={Logo}
                   alt="logo"
                   className="hidden w-16 h-16 rounded-full md:block"
                 />
-                <h1 className="text-xl font-semibold text-black md:text-2xl">
+                <div className="text-xl font-semibold text-black md:text-2xl">
                   <span className="text-xl font-semibold text-orange-500 md:text-2xl">
                     B
                   </span>
                   rainWave
-                </h1>
+                </div>
               </NavLink>
-              <Input
-                classNames={{
-                  base: "max-w-full max-w-[18rem] lg:max-w-[32rem] xl:max-w-[35rem] h-10 lg:pl-16 xl:pl-0",
-                  mainWrapper: "h-full",
-                  input: "text-small",
-
-                  inputWrapper:
-                    "h-full font-normal text-default-500 ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48]",
-                }}
-                startContent={<SearchIcon size={18} />}
-                placeholder="Search here..."
-                radius="none"
-                type="search"
-              />
+              <div className="flex-1 hidden sm:block">
+                <Input
+                  classNames={{
+                    inputWrapper:
+                      "ring-1 ring-[#E2D6C1] bg-white focus-within:ring-[#838c48] ",
+                  }}
+                  startContent={<SearchIcon size={18} />}
+                  placeholder="Search here..."
+                  radius="none"
+                  type="search"
+                />
+              </div>
             </NavbarBrand>
           </NavbarContent>
 
@@ -133,16 +130,13 @@ export default function Header() {
               </Link>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/blog">Blog</Link>
+              <Link href="/mcq">MCQ</Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/quiz">Quiz</Link>
             </NavbarItem>
           </NavbarContent>
-          <NavbarContent
-            justify="center"
-            className="items-center hidden md:flex"
-          >
+          <NavbarContent justify="center" className="flex items-center">
             {token ? (
               <NavbarItem>
                 <Link onPress={userLogout} href="#">
@@ -157,28 +151,21 @@ export default function Header() {
               </NavbarItem>
             )}
 
-            <NavbarItem>
-              <span className="text-black">|</span>
-            </NavbarItem>
-            <NavbarItem>
-              <Link href="/registration">Register</Link>
-            </NavbarItem>
+            {!token && (
+              <>
+                <NavbarItem>
+                  <span className="text-black">|</span>
+                </NavbarItem>
+                <NavbarItem>
+                  <Link href="/registration">Register</Link>
+                </NavbarItem>
+              </>
+            )}
           </NavbarContent>
-          <NavbarMenu>
+          <NavbarMenu className="">
             {menuItems.map((item, index) => (
-              <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  className="w-full"
-                  color={
-                    index === 2
-                      ? "primary"
-                      : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                  }
-                  href="#"
-                  size="lg"
-                >
+              <NavbarMenuItem key={index}>
+                <Link className="w-full" href="#" size="lg">
                   {item}
                 </Link>
               </NavbarMenuItem>

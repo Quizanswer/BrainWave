@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CommonWrapper from "../components/CommonWrapper";
 import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
 import Login from "../components/Login";
 import toast from "react-hot-toast";
 import { registerUser } from "../Api/Api";
 import { useMutation } from "@tanstack/react-query";
+import { Appcontext } from "../context/appContex";
 const role = [
   { key: "admin", label: "Admin" },
   { key: "examiner", label: "Examiner" },
@@ -12,6 +13,8 @@ const role = [
 ];
 
 const Registration = () => {
+  const { token, setToken } = useContext(Appcontext);
+
   const { mutate, error, isPending, isSuccess } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
@@ -136,15 +139,17 @@ const Registration = () => {
                     Registering...
                   </Button>
                 ) : (
-                  <Button
-                    className="bg-[#838c48] text-white hover:bg-[#303030]"
-                    type="submit"
-                    variant="flat"
-                    size="lg"
-                    radius="sm"
-                  >
-                    REGISTER
-                  </Button>
+                  !token && (
+                    <Button
+                      className="bg-[#838c48] text-white hover:bg-[#303030]"
+                      type="submit"
+                      variant="flat"
+                      size="lg"
+                      radius="sm"
+                    >
+                      REGISTER
+                    </Button>
+                  )
                 )}
               </Form>
             </div>
