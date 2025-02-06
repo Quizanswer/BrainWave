@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { loginrUser } from "../Api/Api";
-import axios from "axios";
 import toast from "react-hot-toast";
-const Login = ({ Class }) => {
-  // const [action, setAction] = useState("");
+import { Appcontext } from "../context/appContex";
+const Login = ({ Class, setIsloginopen }) => {
+  const { token, setToken } = useContext(Appcontext);
 
-  // // const userSignin = async (userData) => {
-  // //   const { data } = await axios.post(
-  // //     "https://test-alchemy-backend.onrender.com/user/signin",
-  // //     userData
-  // //   );
-  // // };
-
-  const { mutate, error, isSuccess } = useMutation({
+  const { mutate, error, isPending } = useMutation({
     mutationFn: loginrUser,
+    onSuccess: (data) => {
+      if (data) {
+        toast.success("Login successfull");
+        localStorage.setItem("token", data.token);
+        setIsloginopen(false);
+        setToken(data.token);
+      }
+    },
   });
 
   return (
@@ -25,10 +26,7 @@ const Login = ({ Class }) => {
       onSubmit={(e) => {
         e.preventDefault();
         let data = Object.fromEntries(new FormData(e.currentTarget));
-        // setAction(`${JSON.stringify(data)}`);
-        // setAction(data);
         mutate(data);
-        toast.success("Login successfull");
       }}
     >
       <Input
@@ -71,15 +69,28 @@ const Login = ({ Class }) => {
         Remember Me
       </Checkbox>
 
-      <Button
-        className="bg-[#838c48] text-white hover:bg-[#303030] "
-        type="submit"
-        variant="flat"
-        size="lg"
-        radius="sm"
-      >
-        LOG IN
-      </Button>
+      {isPending ? (
+        <Button
+          isLoading
+          variant="flat"
+          size="lg"
+          radius="sm"
+          className="bg-[#838c48] text-white"
+        >
+          Loging...
+        </Button>
+      ) : (
+        <Button
+          className="bg-[#838c48] text-white hover:bg-[#303030] "
+          type="submit"
+          variant="flat"
+          size="lg"
+          radius="sm"
+        >
+          LOG IN
+        </Button>
+      )}
+
       <p className="text-sm text-[#dd904c] hover:text-[#838c48] transition-all cursor-pointer">
         Lost your password ?
       </p>
