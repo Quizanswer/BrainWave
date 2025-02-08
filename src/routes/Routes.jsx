@@ -4,8 +4,9 @@ import NotFound from "../pages/NotFound";
 import Registration from "../pages/Registration";
 import Home from "../pages/Home";
 import Quiz from "../pages/Quiz";
-import Question from "../pages/Question";
 import MCQ from "../pages/MCQ";
+import Question from "../pages/Question";
+import OwnPrivateRoute from "./OwnPrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/question",
-        element: <Question />,
+        element:<OwnPrivateRoute> <Question /></OwnPrivateRoute>,
       },
       {
         index: true,
