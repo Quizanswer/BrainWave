@@ -1,13 +1,11 @@
 import { Pagination } from "@nextui-org/react";
 import CommonWrapper from "../components/CommonWrapper";
 import { useContext, useState } from "react";
-import { Appcontext } from "../context/appContex";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const colors = ["warning"];
 const Quiz = () => {
-  const { token } = useContext(Appcontext);
   const [page, setPage] = useState(0);
 
   const pagination = async (skip) => {
@@ -24,8 +22,6 @@ const Quiz = () => {
   });
 
   const totalPage = Math.ceil(data?.total / 3);
-
-  console.log("data", data);
   return (
     <div>
       <div className="bg-[#DA853D] py-8 ">

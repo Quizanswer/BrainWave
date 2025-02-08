@@ -14,12 +14,14 @@ import Logo from "../assets/images/NavLogo.png";
 import CommonWrapper from "../components/CommonWrapper";
 import { NavLink } from "react-router-dom";
 import LoginModal from "../components/LoginModal";
-import { Appcontext } from "../context/appContex";
+import { BsPersonFill } from "react-icons/bs";
+import { AuthContext } from "../hooks/AuthContextProvider";
 
+import Cookies from "js-cookie";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsloginopen] = useState(false);
-
+  const { user, setUser, logout } = useContext(AuthContext);
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -67,12 +69,6 @@ export default function Header() {
         />
       </svg>
     );
-  };
-  const { token, setToken } = useContext(Appcontext);
-
-  const userLogout = () => {
-    setToken("");
-    localStorage.removeItem("token");
   };
 
   return (
@@ -137,21 +133,26 @@ export default function Header() {
             </NavbarItem>
           </NavbarContent>
           <NavbarContent justify="center" className="flex items-center">
-            {token ? (
+            {user ? (
               <NavbarItem>
-                <Link onPress={userLogout} href="#">
+                <Link onPress={logout} href="#">
                   Logout
                 </Link>
               </NavbarItem>
             ) : (
               <NavbarItem>
-                <Link onPress={() => setIsloginopen(true)} href="#">
+                <Link
+                  onPress={() => {
+                    setIsloginopen(true);
+                  }}
+                  href="#"
+                >
                   Login
                 </Link>
               </NavbarItem>
             )}
 
-            {!token && (
+            {!user && (
               <>
                 <NavbarItem>
                   <span className="text-black">|</span>
@@ -160,6 +161,12 @@ export default function Header() {
                   <Link href="/registration">Register</Link>
                 </NavbarItem>
               </>
+            )}
+
+            {user && (
+              <span className="text-3xl text-[#DA853D] cursor-pointer">
+                <BsPersonFill />
+              </span>
             )}
           </NavbarContent>
           <NavbarMenu className="">

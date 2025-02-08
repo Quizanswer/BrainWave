@@ -1,6 +1,6 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -14,8 +14,8 @@ const useAxiosSecure = () => {
         return res;
       },
       (error) => {
-        if (error.response.status === 403) {
-          Cookies.remove('user');
+        if (error.res.status === 403) {
+          Cookies.remove("user");
         }
         return Promise.reject(error);
       }
