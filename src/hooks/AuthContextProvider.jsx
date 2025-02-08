@@ -26,16 +26,18 @@ const AuthProvider = ({ children }) => {
   const [loginChecking, setLoginChecking] = useState(true);
   const token = Cookies.get("user");
 
+  console.log("user===================", user);
   useEffect(() => {
     const checkUserAuthentication = async () => {
       try {
-        const response = await Axios.get("/auth/", {
+        const response = await Axios.get("/user/verify", {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status === 200 && response.data.success) {
-          setUser(response.data.data.user);
+        console.log("response=========", response);
+        if (response.status === 200) {
+          setUser(response.data.username);
         } else {
           setUser(null);
         }
@@ -53,32 +55,9 @@ const AuthProvider = ({ children }) => {
     }
   }, [token, Axios]);
 
-  const customSignIn = async (email, password) => {
+  const customSignUp = async (data) => {
     try {
-      const response = await Axios.post("/auth/login", {
-        email,
-        password,
-      });
-      if (!response.status) {
-        throw response;
-      }
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.error("An error occurred during sign-in:", error);
-      throw error;
-    }
-  };
-
-  const customSignUp = async (email, password, displayName, imageUrl) => {
-    console.log(imageUrl);
-    try {
-      const response = await Axios.post("/users", {
-        name: displayName,
-        email,
-        password,
-        imageUrl,
-      });
+      const response = await Axios.post("/user/signup", data);
       if (!response.status) {
         throw response;
       }
@@ -88,13 +67,25 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-  const signUp = async (email, password, displayName, imageUrl) => {
+  const signUp = async (name, username, email, password, role) => {
     // eslint-disable-next-line no-useless-catch
     try {
-      const result = await customSignUp(email, password, displayName, imageUrl);
+      const result = await customSignUp(name, username, email, password, role);
       console.log(result);
       return result;
     } catch (error) {
+      throw error;
+    }
+  };
+  const customSignIn = async (data) => {
+    try {
+      const response = await Axios.post("/user/signin", data);
+      if (!response.status) {
+        throw response;
+      }
+      return response;
+    } catch (error) {
+      console.error("An error occurred during sign-in:", error);
       throw error;
     }
   };
@@ -102,6 +93,7 @@ const AuthProvider = ({ children }) => {
     // eslint-disable-next-line no-useless-catch
     try {
       const result = await customSignIn(email, password);
+
       console.log(result);
 
       return result;

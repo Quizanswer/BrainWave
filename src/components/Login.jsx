@@ -1,24 +1,25 @@
 import React, { useContext, useState } from "react";
 import { Form, Input, Button, Checkbox } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
-import { loginrUser } from "../Api/Api";
 import toast from "react-hot-toast";
-import { Appcontext } from "../context/appContex";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../hooks/AuthContextProvider";
+import Cookies from "js-cookie";
 const Login = ({ Class, setIsloginopen }) => {
-  const { token, setToken } = useContext(Appcontext);
-
-  const { mutate, error, isPending } = useMutation({
-    mutationFn: loginrUser,
+  const { signIn, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { mutate, isPending } = useMutation({
+    mutationFn: signIn,
     onSuccess: (data) => {
       if (data) {
         toast.success("Login successfull");
-        localStorage.setItem("token", data.token);
+        setUser(true);
+        Cookies.set("user", data.data.token);
         setIsloginopen(false);
-        setToken(data.token);
+        navigate("/");
       }
     },
   });
-
   return (
     <Form
       className={`flex flex-col w-full gap-4 ${Class}`}

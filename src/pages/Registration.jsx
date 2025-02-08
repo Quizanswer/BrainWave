@@ -1,11 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import CommonWrapper from "../components/CommonWrapper";
-import { Form, Input, Button, Select, SelectItem } from "@nextui-org/react";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  SelectItem,
+  user,
+} from "@nextui-org/react";
 import Login from "../components/Login";
 import toast from "react-hot-toast";
-import { registerUser } from "../Api/Api";
 import { useMutation } from "@tanstack/react-query";
-import { Appcontext } from "../context/appContex";
+import { AuthContext } from "../hooks/AuthContextProvider";
 const role = [
   { key: "admin", label: "Admin" },
   { key: "examiner", label: "Examiner" },
@@ -13,17 +19,17 @@ const role = [
 ];
 
 const Registration = () => {
-  const { token, setToken } = useContext(Appcontext);
+  const { signUp, user, setUser } = useContext(AuthContext);
 
-  const { mutate, error, isPending, isSuccess } = useMutation({
-    mutationFn: registerUser,
+  console.log("userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", user);
+  const { mutate, isPending } = useMutation({
+    mutationFn: signUp,
     onSuccess: (data) => {
       if (data) {
         toast.success("Register successfull");
       }
     },
   });
-
   return (
     <div className="">
       <div className="bg-[#DA853D] text-white py-8">
@@ -56,6 +62,7 @@ const Registration = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   let data = Object.fromEntries(new FormData(e.currentTarget));
+
                   mutate(data);
                 }}
                 onReset={() => {
@@ -139,7 +146,7 @@ const Registration = () => {
                     Registering...
                   </Button>
                 ) : (
-                  !token && (
+                  !user && (
                     <Button
                       className="bg-[#838c48] text-white hover:bg-[#303030]"
                       type="submit"

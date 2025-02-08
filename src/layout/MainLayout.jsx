@@ -5,7 +5,6 @@ import Footer from "./Footer";
 export default function MainLayout() {
   return (
     <div>
-      
       <Header />
 
       <div className="min-h-screen  flex max-h-full   flex-nowrap justify-start  transition-[padding] duration-200 p-0">
